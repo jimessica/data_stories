@@ -1,0 +1,108 @@
+---
+title: "Highrises with 10 or more fire inspection violations in Ward 1"
+author: "Jessica Im"
+date: format(Sys.time(), "%d %B %Y")
+format: html
+abstract: "My abstract."
+bibliography: bibliography.bib
+
+
+  
+---
+
+```{r}
+
+#### Preamble ####
+# Purpose:
+# Author: Jessica Im
+# Email: jessica.im@mail.utoronto.ca
+# Date: 1 July 2022
+
+```
+
+```{r}
+
+library(opendatatoronto)
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+
+
+```
+
+```{r}
+library(usethis)
+library(gitcreds)
+```
+
+
+```{r}
+	
+#### Acquire ####
+package <- show_package("f816b362-778a-4480-b9ed-9b240e0fe9c2")
+package
+resources <- list_package_resources("f816b362-778a-4480-b9ed-9b240e0fe9c2")
+datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
+highrise_fire_inspection_data <- filter(datastore_resources, row_number()==1) %>% get_resource()
+highrise_fire_inspection_data
+
+```
+
+
+```{r}
+
+#### Clean ####
+highrise_fire_inspection_clean <-
+  clean_names(highrise_fire_inspection_data)|>
+  drop_na(violation_fire_code) |>
+  filter(property_ward == "01") |>
+  select(property_address)
+
+head(highrise_fire_inspection_clean)
+
+# Create a number of violations variable
+highrise_fire_inspection_clean <-
+  highrise_fire_inspection_clean |>
+  group_by(property_address) |>
+  mutate(number_of_violations = n())
+
+# Filter for 10 or more violations
+highrise_fire_inspection_clean <-
+  highrise_fire_inspection_clean |>
+  filter(number_of_violations >= 10)
+
+head(highrise_fire_inspection_clean)
+
+write_csv(
+  x = highrise_fire_inspection_clean,
+  file = "highrise_fire_inspection.csv"
+)
+
+```
+
+
+```{r}
+
+#### Explore ####
+highrise_fire_inspection_clean <-
+  read_csv(
+    "highrise_fire_inspection.csv",
+    show_col_types = FALSE
+  )
+
+highrise_fire_inspection_clean |>
+  ggplot(aes(x = property_address)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(x = "Address", y = "Number of Violations") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+```
+
+# References
+```{r}
+write_bib()
+```
+
