@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-
+```{r}
 #### Preamble ####
 # Purpose: Simulates Fire Inspection Results
 # Author: Jessica Im
@@ -16,7 +16,10 @@ editor: visual
 ## Ward Data: https://open.toronto.ca/dataset/ward-profiles-25-ward-model/
   # Download "2023-WardProfiles-2011-2021-CensusData" data file
 
+```
 
+
+```{r}
 #### Workspace setup ####
 library(opendatatoronto)
 library(dplyr)
@@ -24,8 +27,10 @@ library(tidyverse)
 library(knitr)
 library(janitor)
 library(ggplot2)
+```
 
 
+```{r}
 #### Simulate Fire Inspection Violations per Ward ####
 #based on code from: https://tellingstorieswithdata.com/02-drinking_from_a_fire_hose.html#simulate and https://tellingstorieswithdata.com/02-drinking_from_a_fire_hose.html#simulate-1
 set.seed(250)
@@ -48,8 +53,10 @@ simulated_data <-
       sample(0:150, 25, replace = TRUE),
   )
 simulated_data
+```
 
 
+```{r}
 #### Simulate Household Income ####
 set.seed(250)
 
@@ -64,8 +71,11 @@ simulate_data <-
       sample(30000:60000, 25, replace = TRUE),
   )
 simulate_data
+```
 
 
+
+```{r}
 #### Simulate Income x Fire Inspection Violations ####
 set.seed(250)
 
@@ -90,8 +100,10 @@ simulated_data_x <-
   )
 
 simulated_data_x
+```
 
 
+```{r}
 #### Graph Household Income x Num of Highrises w/ Violations ####
 
 # Create data
@@ -110,8 +122,10 @@ ggplot(data, aes(x=Violations, y=Income)) +
   geom_point() + 
   geom_text(label=rownames(data), hjust = 0, nudge_x = 1) +
   geom_smooth(method=lm)
+```
 
 
+```{r}
 #### Validating Data ####
 
 # Test 1: 1 to 25 wards
@@ -136,3 +150,4 @@ simulated_data$Highrises |> max() <= 150
 simulated_data_x$"Median Income Individual" |> max() >= 30000
 simulated_data_x$"Median Income Individual" |> min() <= 60000
 ```
+
