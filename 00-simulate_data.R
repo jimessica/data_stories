@@ -6,7 +6,7 @@ editor: visual
   
 
 #### Preamble ####
-# Purpose: Simulates Fire Inspection Results
+# Purpose: Simulate Fire Inspection Results and Incomy by Ward Data
 # Author: Jessica Im
 # Date: 20 January 2024
 # Contact: jessica.im@mail.utoronto.ca
