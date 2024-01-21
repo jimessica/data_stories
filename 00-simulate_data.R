@@ -6,7 +6,7 @@ editor: visual
   
 
 #### Preamble ####
-# Purpose: Simulate Fire Inspection Results and Incomy by Ward Data
+# Purpose: Simulate Fire Inspection Results and Economy by Ward Data
 # Author: Jessica Im
 # Date: 20 January 2024
 # Contact: jessica.im@mail.utoronto.ca
@@ -135,3 +135,5 @@ simulated_data$Highrises |> max() <= 150
 simulated_data_x$"Median Income Individual" |> max() >= 30000
 simulated_data_x$"Median Income Individual" |> min() <= 60000
 
+library(gitcreds)
+gitcreds_set()
