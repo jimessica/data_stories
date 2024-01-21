@@ -1,5 +1,5 @@
 ---
-  title: "scripts/00-simulate_data.R"
+title: "scripts/00-simulate_data.R"
 format: html
 editor: visual
 ---
@@ -88,7 +88,6 @@ simulated_data_x <-
     "Median Income Individual" =
       sample(30000:60000, 25, replace = TRUE),
   )
-
 simulated_data_x
 
 
