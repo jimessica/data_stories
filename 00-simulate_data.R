@@ -1,10 +1,10 @@
 ---
-title: "scripts/00-simulate_data.R"
+  title: "scripts/00-simulate_data.R"
 format: html
 editor: visual
 ---
-
-```{r}
+  
+  ```{r}
 #### Preamble ####
 # Purpose: Simulates Fire Inspection Results
 # Author: Jessica Im
@@ -14,7 +14,7 @@ editor: visual
 # Data:
 ## Fire Inspection Data: https://open.toronto.ca/dataset/highrise-residential-fire-inspection-results/
 ## Ward Data: https://open.toronto.ca/dataset/ward-profiles-25-ward-model/
-  # Download "2023-WardProfiles-2011-2021-CensusData" data file
+# Download "2023-WardProfiles-2011-2021-CensusData" data file
 
 ```
 
@@ -150,4 +150,3 @@ simulated_data$Highrises |> max() <= 150
 simulated_data_x$"Median Income Individual" |> max() >= 30000
 simulated_data_x$"Median Income Individual" |> min() <= 60000
 ```
-
