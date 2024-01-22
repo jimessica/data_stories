@@ -149,6 +149,3 @@ simulated_data$Highrises |> max() <= 150
 # Test 4: Median Income for Individuals is between 30,000 and 60,000
 simulated_data_x$"Median Income Individual" |> max() >= 30000
 simulated_data_x$"Median Income Individual" |> min() <= 60000
-
-library(gitcreds)
-gitcreds_set()
