@@ -14,7 +14,6 @@ library(lubridate)
 library(readxl)
 
 
-
 #### Acquire ####
 
 # Download Highrise Fire Inspection Data
