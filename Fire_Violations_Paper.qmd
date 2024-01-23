@@ -2,8 +2,10 @@
 ---
 title: "An analysis of socioeconomic factors and fire inspection violations in Toronto highrises"
 author: "Jessica Im"
-date: 23 January 2024
+date: "today"
+date-format: long
 format: pdf
+toc: TRUE
 abstract: "This is my abstract."
 bibliography: fire_violation_references.bib
 ---
