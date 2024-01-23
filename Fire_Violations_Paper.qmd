@@ -1,0 +1,73 @@
+
+---
+title: "An analysis of socioeconomic factors and fire inspection violations in Toronto highrises"
+author: "Jessica Im"
+date: 23 January 2024
+format: pdf
+abstract: "This is my abstract."
+bibliography: fire_violation_references.bib
+---
+
+```{r}
+#| message: false
+#| echo: false
+
+#### Workspace setup ####
+
+## Load packages
+library(opendatatoronto)
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+library(ggplot2)
+library(readxl)
+
+#read in cleaned data #
+cleaned_voter_statistics <- 
+  read.csv(here::here("inputs/data/highrise_fire_inspection_clean.csv"))
+show_col_types = FALSE
+
+#read in cleaned data #
+summarized_voter_statistics <- 
+  read.csv(here::here("inputs/data/ward_data_clean.csv"))
+show_col_types = FALSE
+
+#read in cleaned data #
+summarized_voter_turnout <- read.csv(here::here("inputs/data/summarized_voter_turnout.csv"))
+show_col_types = FALSE
+
+#read in cleaned data #
+finalized_voter_statistics <- read.csv(here::here("inputs/data/finalized_voter_statistics.csv"))
+show_col_types = FALSE
+```
+
+
+# Title
+
+Abstract...
+
+## Table of Contents
+
+### Introduction
+
+### Data
+
+1.  Highrise Residential Fire Inspection Results
+2.  Ward
+
+### Results
+
+### Discussion
+
+### Conclusion
+
+### References
+
+
+# Introduction
+
+# Data
+
+# references

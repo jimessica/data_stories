@@ -5,76 +5,94 @@ date: format(Sys.time(), "%d %B %Y")
 format: html
 abstract: "My abstract."
 bibliography: bibliography.bib
-
-
-  
 ---
 
 ```{r}
-
 #### Preamble ####
 # Purpose:
 # Author: Jessica Im
 # Email: jessica.im@mail.utoronto.ca
-# Date: 1 July 2022
-
+# Date: 21 January 2024
 ```
 
 ```{r}
-
 library(opendatatoronto)
 library(dplyr)
 library(tidyverse)
 library(knitr)
 library(janitor)
 library(lubridate)
-
-
-```
-
-```{r}
-library(usethis)
-library(gitcreds)
 ```
 
 
 ```{r}
-	
-#### Acquire ####
-package <- show_package("f816b362-778a-4480-b9ed-9b240e0fe9c2")
-package
-resources <- list_package_resources("f816b362-778a-4480-b9ed-9b240e0fe9c2")
-datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
-highrise_fire_inspection_data <- filter(datastore_resources, row_number()==1) %>% get_resource()
-highrise_fire_inspection_data
-
+highrise_fire_inspection_data <-
+  read_csv(
+    "unedited_fire_inspection_data.csv",
+    show_col_types = FALSE
+  )
 ```
 
 
 ```{r}
-
 #### Clean ####
+# Clean names and filter out highrises without a violation
 highrise_fire_inspection_clean <-
   clean_names(highrise_fire_inspection_data)|>
-  drop_na(violation_fire_code) |>
-  filter(property_ward == "01") |>
-  select(property_address)
-
+  drop_na(violation_fire_code)
+  
 head(highrise_fire_inspection_clean)
+```
 
+
+```{r}
+# Fix ward numbers so they are consistent
+highrise_fire_inspection_clean <-
+  highrise_fire_inspection_clean |>
+  mutate(
+    property_ward =
+      case_match(
+        property_ward,
+        "01" ~ "1",
+        "02" ~ "2",
+        "03" ~ "3",
+        "04" ~ "4",
+        "05" ~ "5",
+        "06" ~ "6",
+        "07" ~ "7",
+        "08" ~ "8",
+        "09" ~ "9"
+      )
+  )
+head(highrise_fire_inspection_clean)
+```
+
+```{r}
 # Create a number of violations variable
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
   group_by(property_address) |>
   mutate(number_of_violations = n())
 
-# Filter for 10 or more violations
+highrise_fire_inspection_clean
+
+```
+
+```{r}
+# Only select the columns of importance
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
-  filter(number_of_violations >= 10)
-
+  select(property_address,
+         property_ward,
+         violation_fire_code,
+         violation_description,
+         number_of_violations)
 head(highrise_fire_inspection_clean)
+```
 
+
+
+```{r}
 write_csv(
   x = highrise_fire_inspection_clean,
   file = "highrise_fire_inspection.csv"
@@ -82,7 +100,7 @@ write_csv(
 
 ```
 
-
+### Exploring my data
 ```{r}
 
 #### Explore ####
@@ -93,7 +111,7 @@ highrise_fire_inspection_clean <-
   )
 
 highrise_fire_inspection_clean |>
-  ggplot(aes(x = property_address)) +
+  ggplot(aes(x = property_ward)) +
   geom_bar() +
   theme_minimal() +
   labs(x = "Address", y = "Number of Violations") +

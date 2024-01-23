@@ -1,0 +1,30 @@
+---
+title: "fire_inspection_references"
+format: html
+---
+
+```{r}
+library(opendatatoronto)
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+library(ggplot2)
+library(readxl)
+```
+
+```{r}
+citation()
+citation("opendatatoronto")
+citation("dplyr")
+citation("tidyverse")
+citation("knitr")
+citation("janitor")
+citation("lubridate")
+citation("ggplot2")
+citation("readxl")
+
+write_bib()
+```
+
