@@ -6,7 +6,7 @@ date: "today"
 date-format: long
 format: pdf
 toc: TRUE
-abstract: "This is my abstract."
+abstract: "My abstract..."
 bibliography: fire_violation_references.bib
 ---
 
