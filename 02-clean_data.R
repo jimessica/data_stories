@@ -77,7 +77,7 @@ head(highrise_fire_inspection_clean)
 # Save finalized data
 write_csv(
   x = highrise_fire_inspection_clean,
-  file = "highrise_fire_inspection_clean.csv",
+  file = "inputs/data/highrise_fire_inspection_clean.csv",
 )
 
 
@@ -111,5 +111,5 @@ ward_data_median_indv_income
 # Save ward data
 write_csv(
   x = ward_data_clean,
-  file = "ward_data_clean.csv",
+  file = "inputs/data/ward_data_clean.csv",
 )
