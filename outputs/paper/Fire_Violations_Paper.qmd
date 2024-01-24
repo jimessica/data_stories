@@ -27,7 +27,7 @@ library(ggplot2)
 library(readxl)
 
 #read in cleaned data #
-cleaned_voter_statistics <- 
+cleaned_fire_inspection_data <- 
   read.csv(here::here("inputs/data/highrise_fire_inspection_clean.csv"))
 show_col_types = FALSE
 
@@ -45,13 +45,30 @@ According to Statistics Canada, residential fires accounted for 3 of 4 fire-rela
 While high-rises are designed with fire safety as a priority, because of the number of residents and size, a fire has potential for major incidents and can be challenging to respond to [@highrisefiresafety]. This paper will examine the relationship between fire regulation violations in highrises, which requirements failed to be met, and various socio-economic factors by walking through the following sections: Data, Results, Discussion, and Conclusion. In Data, I will discuss the spreadsheets on fire inspection violations in highrises and socio-economic information by Ward Profiles. I also detail the cleaning and analyzing process of these datasets. Results will reveal trends found in the analyses and the Discussion section highlights additional insights. Finally, in the Conclusion, I will summarize key takeaways.
 
 ## Data
+The two datasets used in this paper are from the city of Toronto's OpenDataToronto database [@R-opendatatoronto]. To investigate the various socioeconomic variables and investigation violations in relation to highrises, two datasets were used: "Highrise Residential Fire Inspection Results" [@FireInspectionResultsData] and "Ward Profiles (25-ward model) [@WardProfiles]. The data were cleaned and analyzed using open-source statistical programming language R [@R-base], alongside dplyr [@R-dplyr], tidyverse [@R-tidyverse], forcats [@R-forcats], ggplot2 [@R-ggplot2], janitor [@R-janitor], knitr [@R-knitr], lubridate [@R-lubridate], purrr [@R-purrr], readr [@R-readr], readxl [@R-readxl], stringr [@R-stringr], tibble [@R-tibble], and tidyr [@R-tidyr].
 
-1.  Highrise Residential Fire Inspection Results
-2.  Ward
+### Fire Inspection Results Data
+The Highrise Residential Fire Inspection Results Data [@FireInspectionResultsData] consists of properties with and without identified Ontario Fire Code violations. This dataset does not include ongoing inspections and only includes closed cases. The data includes building addresses, property wards, each fire code violated and a description, and the open and close date of each inspection. 
+
+To clean this data, I removed variables irrelevant to the intended scope of investigation. For example, date of inspections and buildings without fire code violations were removed (see @tbl-). 
+
+```{r}
+#| message: false
+#| echo: false
+#| label: tbl-cleaned_fire_inspection_data
+#| tbl-cap: Sample of Cleaned Fire Inspection Data
+
+head (cleaned_fire_inspection_data, 5) |>
+  kable(
+    col.names = c("Property Address" , "Property Ward", "Violation Fire Code", "Violation Description", "Number of Violations"),
+  booktabs = TRUE
+  )
+```
 
 ## Results
+```{r}
 
-## Discussion
+```
 
 ## Conclusion
 
