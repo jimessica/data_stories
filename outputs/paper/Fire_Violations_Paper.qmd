@@ -2,9 +2,11 @@
 ---
 title: "An analysis of socioeconomic factors and fire inspection violations in Toronto highrises"
 author: "Jessica Im"
-date: 23 January 2024
+date: "today"
+date-format: long
 format: pdf
-abstract: "This is my abstract."
+toc: TRUE
+abstract: "My abstract..."
 bibliography: fire_violation_references.bib
 ---
 
@@ -33,41 +35,24 @@ show_col_types = FALSE
 summarized_voter_statistics <- 
   read.csv(here::here("inputs/data/ward_data_clean.csv"))
 show_col_types = FALSE
-
-#read in cleaned data #
-summarized_voter_turnout <- read.csv(here::here("inputs/data/summarized_voter_turnout.csv"))
-show_col_types = FALSE
-
-#read in cleaned data #
-finalized_voter_statistics <- read.csv(here::here("inputs/data/finalized_voter_statistics.csv"))
-show_col_types = FALSE
 ```
 
+## Introduction
+The Ontario Fire Code is a regulation under the Fire Protection and Prevention Act of 1997, and helps guide Toronto Fire Services and building fire safety requirements [@fireinspectionresultswebsite]. Since 2016, TFS Fire Inspectors conduct fire safety inspections on residential highrises yearly [@firepreventioninhighrises]. Results of these fire inspections can be found on OpenDataToronto, making fire safety accessible to the public. 
 
-# Title
+According to Statistics Canada, residential fires accounted for 3 of 4 fire-related deaths. Homes without a functional smoke alarm also accounted for 74% of deaths [@fireincidentspandemic]. Unfortunately, from 2015 to 2021, only 37% of residential fires had a working smoke alarm. Fire-related injuries were also higher in homes with a functioning smoke alarm but no sprinkler protection. Statistics Canada explains this may be due to attempts by the residents to control the fires. Since the Covid-19 pandemic, fires have increased and the rise in deaths among seniors was highest; from 2019 to 2020 fire-related deaths among seniors doubled. In a cross-sectional population-based study in British Columbia, Alberta, Manitoba, and Ontario,  socioeconomic factors related to residential fire rates were investigated [@socioeconomicfactorsandfireincidents]. The report found an association between higher educational attainment and unemployment with increased fire incidents. Smaller households were also found to be at higher risk for fire casualties, especially for children. 
 
-Abstract...
+While high-rises are designed with fire safety as a priority, because of the number of residents and size, a fire has potential for major incidents and can be challenging to respond to [@highrisefiresafety]. This paper will examine the relationship between fire regulation violations in highrises, which requirements failed to be met, and various socio-economic factors by walking through the following sections: Data, Results, Discussion, and Conclusion. In Data, I will discuss the spreadsheets on fire inspection violations in highrises and socio-economic information by Ward Profiles. I also detail the cleaning and analyzing process of these datasets. Results will reveal trends found in the analyses and the Discussion section highlights additional insights. Finally, in the Conclusion, I will summarize key takeaways.
 
-## Table of Contents
-
-### Introduction
-
-### Data
+## Data
 
 1.  Highrise Residential Fire Inspection Results
 2.  Ward
 
-### Results
+## Results
 
-### Discussion
+## Discussion
 
-### Conclusion
+## Conclusion
 
-### References
-
-
-# Introduction
-
-# Data
-
-# references
+## References
