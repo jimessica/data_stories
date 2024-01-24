@@ -1,0 +1,187 @@
+---
+title: "idk anymore"
+author: Jessica Im
+format: html
+---
+
+```{r}
+install.packages("gtools")
+```
+
+```{r}
+library(opendatatoronto)
+library(dplyr)
+library(tidyverse)
+library(knitr)
+library(janitor)
+library(lubridate)
+library(gtools)
+
+
+#### Read in data ####
+# Read in fire data
+highrise_fire_inspection_data <-
+  read_csv(
+  "inputs/data/unedited_fire_inspection_data.csv",
+  show_col_types = FALSE
+  )
+```
+```{r}
+# Create a dataset of violations per ward adjusted for total number of highrises
+#### Clean fire inspection data ####
+
+# Clean names
+clean_not_dropped <-
+  clean_names(highrise_fire_inspection_data)
+
+# Fix ward numbers so they are consistent
+  clean_not_dropped <-
+  clean_not_dropped |>
+  mutate(
+    property_ward =
+      case_match(
+        property_ward,
+        "01" ~ "1",
+        "02" ~ "2",
+        "03" ~ "3",
+        "04" ~ "4",
+        "05" ~ "5",
+        "06" ~ "6",
+        "07" ~ "7",
+        "08" ~ "8",
+        "09" ~ "9",
+        "10" ~ "10",
+        "11" ~ "11",
+        "12" ~ "12",
+        "13" ~ "13",
+        "14" ~ "14",
+        "15" ~ "15",
+        "16" ~ "16",
+        "17" ~ "17",
+        "18" ~ "18",
+        "19" ~ "19",
+        "20" ~ "20",
+        "21" ~ "21",
+        "22" ~ "22",
+        "23" ~ "23",
+        "24" ~ "24",
+        "25" ~ "25",
+      )
+  )
+  
+# Clean names AND drop highrises without a violation
+clean_dropped <-
+  clean_names(highrise_fire_inspection_data)|>
+  drop_na(violation_fire_code)
+head(clean_dropped)
+
+# Fix ward numbers so they are consistent
+clean_dropped <-
+  clean_dropped |>
+  mutate(
+    property_ward =
+      case_match(
+        property_ward,
+        "01" ~ "1",
+        "02" ~ "2",
+        "03" ~ "3",
+        "04" ~ "4",
+        "05" ~ "5",
+        "06" ~ "6",
+        "07" ~ "7",
+        "08" ~ "8",
+        "09" ~ "9",
+        "10" ~ "10",
+        "11" ~ "11",
+        "12" ~ "12",
+        "13" ~ "13",
+        "14" ~ "14",
+        "15" ~ "15",
+        "16" ~ "16",
+        "17" ~ "17",
+        "18" ~ "18",
+        "19" ~ "19",
+        "20" ~ "20",
+        "21" ~ "21",
+        "22" ~ "22",
+        "23" ~ "23",
+        "24" ~ "24",
+        "25" ~ "25",
+      )
+  )
+```
+
+
+```{r}
+# Creating the number of violations per ward
+clean_ward_adj <-
+  clean_dropped |>
+  select(property_ward,
+         violation_fire_code)
+
+clean_ward_adj <-
+  clean_ward_adj |>
+  group_by(property_ward) |>
+  mutate(number_of_violations_per_ward = n())
+clean_ward_adj
+
+clean_ward_adj <-
+  clean_ward_adj |>
+  select(property_ward,
+         number_of_violations_per_ward)
+
+clean_ward_adj <-
+  distinct(clean_ward_adj, property_ward, .keep_all= TRUE)
+clean_ward_adj
+
+```
+
+
+
+```{r}
+# Creating the total number of highrises in a ward
+clean_ward_adj_2 <-
+  clean_not_dropped |>
+  select(property_address,
+         property_ward)
+
+clean_ward_adj_2 <-
+  clean_ward_adj_2 |>
+  group_by(property_ward) |>
+  mutate(num_of_highrises = n())
+
+clean_ward_adj_2 <-
+  clean_ward_adj_2 |>
+  select(property_ward,
+         num_of_highrises)
+
+clean_ward_adj_2 <-
+  distinct(clean_ward_adj_2, property_ward, .keep_all= TRUE)
+clean_ward_adj_2
+```
+
+```{r}
+
+```
+
+
+```{r}
+
+# putting it all together
+
+clean_ward_adj_final <-
+  cbind(clean_ward_adj, clean_ward_adj_2)
+clean_ward_adj_final
+
+# trying to order the two datasets so that they are both in the same order and then put them together
+ ordered_clean_ward_adj_2 <-
+   clean_ward_adj_2 |>
+   mutate(property_ward = clean_ward_adj_2[,1][match(clean_ward_adj_2, clean_ward_adj_2[,2])])
+ ordered_clean_ward_adj_2
+
+
+# clean_ward_adj_final <- 
+ #  transform(clean_ward_adj_final, adj = number_of_violations_per_ward / num_of_highrises)
+# clean_ward_adj_final
+```
+
