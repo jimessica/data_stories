@@ -2,7 +2,8 @@
 # Purpose: Cleans the unedited fire inspection and ward data
 # Author: Jessica Im
 # Email: jessica.im@mail.utoronto.ca
-# Date: 21 January 2024
+# Date: 24 January 2024
+
 
 #### Workspace setup ####
 library(opendatatoronto)
@@ -14,17 +15,19 @@ library(lubridate)
 
 
 #### Read in data ####
+# Read in fire data
 highrise_fire_inspection_data <-
   read_csv(
-    "unedited_fire_inspection_data.csv",
-    show_col_types = FALSE
+  "unedited_fire_inspection_data.csv",
+  show_col_types = FALSE
   )
 
+# Read in ward data
 ward_data <-
   read_csv(
-    "unedited_ward_data.csv",
-    skip = 1358,
-    show_col_types = FALSE
+  "unedited_ward_data.csv",
+  skip = 1358,
+  show_col_types = FALSE
   )
 
 
@@ -32,9 +35,9 @@ ward_data <-
 # Clean names and filter out highrises without a violation
 highrise_fire_inspection_clean <-
   clean_names(highrise_fire_inspection_data)|>
-  drop_na(violation_fire_code)
+  drop_na(violation_fire_code
+          )
 head(highrise_fire_inspection_clean)
-
 
 # Fix ward numbers so they are consistent
 highrise_fire_inspection_clean <-
@@ -54,14 +57,14 @@ highrise_fire_inspection_clean <-
         "09" ~ "9"
       )
   )
-
+head(highrise_fire_inspection_clean)
 
 # Create a number of violations variable
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
   group_by(property_address) |>
   mutate(number_of_violations = n())
-
+highrise_fire_inspection_clean
 
 # Only select the columns of importance
 highrise_fire_inspection_clean <-
@@ -73,10 +76,11 @@ highrise_fire_inspection_clean <-
 head(highrise_fire_inspection_clean)
 
 
-# Save finalized data
+#### Save finalized data ####
 write_csv(
   x = highrise_fire_inspection_clean,
   file = "inputs/data/highrise_fire_inspection_clean.csv",
+  file = "highrise_fire_inspection.csv"
 )
 
 
@@ -97,17 +101,17 @@ ward_data_avg_rent <-
 ward_data_avg_rent
 
 # Select average monthly owned shelter cost
-ward_data_avg_owned_shelter_cost <-
+ward_data_avg_owned_shelter_cost <- 
   ward_data_clean[37,3:27]
 ward_data_avg_owned_shelter_cost
 
 # Select median individual income 
-ward_data_median_indv_income <-
+ward_data_median_indv_income <- 
   ward_data_clean[69,3:27]
 ward_data_median_indv_income
 
 
-# Save ward data
+##### Save ward data ####
 write_csv(
   x = ward_data_clean,
   file = "inputs/data/ward_data_clean.csv",
