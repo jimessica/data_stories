@@ -75,7 +75,6 @@ highrise_fire_inspection_clean <-
   select(property_address,
          property_ward,
          violation_fire_code,
-         violation_description,
          number_of_violations)
 head(highrise_fire_inspection_clean)
 ```
