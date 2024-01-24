@@ -47,6 +47,10 @@ While high-rises are designed with fire safety as a priority, because of the num
 ## Data
 The two datasets used in this paper are from the city of Toronto's OpenDataToronto database [@R-opendatatoronto]. To investigate the various socioeconomic variables and investigation violations in relation to highrises, two datasets were used: "Highrise Residential Fire Inspection Results" [@FireInspectionResultsData] and "Ward Profiles (25-ward model) [@WardProfiles]. The data were cleaned and analyzed using open-source statistical programming language R [@R-base], alongside dplyr [@R-dplyr], tidyverse [@R-tidyverse], forcats [@R-forcats], ggplot2 [@R-ggplot2], janitor [@R-janitor], knitr [@R-knitr], lubridate [@R-lubridate], purrr [@R-purrr], readr [@R-readr], readxl [@R-readxl], stringr [@R-stringr], tibble [@R-tibble], and tidyr [@R-tidyr].
 
+```{r}
+cleaned_fire_inspection_data
+```
+
 ### Fire Inspection Results Data
 The Highrise Residential Fire Inspection Results Data [@FireInspectionResultsData] consists of properties with and without identified Ontario Fire Code violations. This dataset does not include ongoing inspections and only includes closed cases. The data includes building addresses, property wards, each fire code violated and a description, and the open and close date of each inspection. 
 
@@ -58,11 +62,13 @@ To clean this data, I removed variables irrelevant to the intended scope of inve
 #| label: tbl-cleaned_fire_inspection_data
 #| tbl-cap: Sample of Cleaned Fire Inspection Data
 
-head (cleaned_fire_inspection_data, 5) |>
+# Code referenced from: https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd
+head (cleaned_fire_inspection_data, 4) |>
   kable(
-    col.names = c("Property Address" , "Property Ward", "Violation Fire Code", "Number of Violations"),
+    col.names = c("Property Address", "Property Ward", "Violation Fire Code", "Number of Violations"),
   booktabs = TRUE
   )
+
 ```
 
 ## Results

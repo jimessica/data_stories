@@ -79,8 +79,7 @@ head(highrise_fire_inspection_clean)
 #### Save finalized data ####
 write_csv(
   x = highrise_fire_inspection_clean,
-  file = "inputs/data/highrise_fire_inspection_clean.csv",
-  file = "highrise_fire_inspection.csv"
+  file = "inputs/data/highrise_fire_inspection_clean.csv"
 )
 
 

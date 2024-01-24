@@ -28,7 +28,7 @@ highrise_fire_inspection_data
 # Save Highrise Fire Inspection Data
 write_csv(
   x = highrise_fire_inspection_data,
-  file = "unedited_fire_inspection_data.csv"
+  file = "inputs/data/unedited_fire_inspection_data.csv"
 )
 
 # Read Highrise Fire Inspection Data
@@ -47,7 +47,7 @@ toronto_ward_data <-
 # Save Ward Data
 write_csv(
   x = toronto_ward_data,
-  file = "unedited_ward_data.csv"
+  file = "inputs/data/unedited_ward_data.csv"
 )
 
 # Read Highrise Toornto Ward Data
