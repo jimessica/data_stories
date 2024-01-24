@@ -116,29 +116,6 @@ cleaned_fire_inspection_data_ward |>
   theme_classic() 
 ```
 
-### Violations and Age
-```{r}
-#| message: false
-#| echo: false
-#| label: fig-violations_and_age
-#| fig-cap: Violations and Age
-
-# Violations and Age
-
-
-cleaned_fire_inspection_data_ward |>
- ggplot(mapping = aes(x = property_ward, y = number_of_violations_per_ward)) +
-  scale_x_continuous(breaks = scales::pretty_breaks(n = 25)) +
-  scale_y_continuous(breaks = scales::pretty_breaks(n = 10))+
-  geom_bar(stat = "identity") +
-  labs(
-    title = "Number of Violations per Ward",
-    x = "Ward",
-    y = "Violations",
-  ) +
-  theme_classic() 
-```
-
 
 ## References
 
