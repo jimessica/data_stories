@@ -6,7 +6,7 @@ date: "today"
 date-format: long
 format: pdf
 toc: TRUE
-abstract: "My abstract..."
+abstract: "Exploring fire investigation results and social and economic factors in Toronto."
 bibliography: fire_violation_references.bib
 ---
 
