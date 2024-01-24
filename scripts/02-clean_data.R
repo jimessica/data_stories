@@ -79,28 +79,50 @@ head(highrise_fire_inspection_clean)
 
 # Create a dataset with number of violations per ward
 # Based on code from: https://www.geeksforgeeks.org/remove-duplicate-rows-based-on-multiple-columns-using-dplyr-in-r/
-highrise_fire_inspection_clean <-
+highrise_fire_inspection_clean_ward <-
   highrise_fire_inspection_clean |>
   select(property_ward,
          violation_fire_code)
-highrise_fire_inspection_clean
+highrise_fire_inspection_clean_ward
 
-highrise_fire_inspection_clean <-
-  highrise_fire_inspection_clean |>
+highrise_fire_inspection_clean_ward <-
+  highrise_fire_inspection_clean_ward |>
   group_by(property_ward) |>
   mutate(number_of_violations_per_ward = n()) |>
   select(property_ward,
         number_of_violations_per_ward)
-highrise_fire_inspection_clean
+highrise_fire_inspection_clean_ward
 
-highrise_fire_inspection_clean <-
-  distinct(highrise_fire_inspection_clean, property_ward, .keep_all= TRUE)
-highrise_fire_inspection_clean
+highrise_fire_inspection_clean_ward <-
+  distinct(highrise_fire_inspection_clean_ward, property_ward, .keep_all= TRUE)
+highrise_fire_inspection_clean_ward
 
-#### Save finalized data ####
+# Create a cleaned dataset with all relevant columns
+highrise_fire_inspection_clean_all <-
+  highrise_fire_inspection_clean |>
+  group_by(property_address) |>
+  mutate(number_of_violations = n())
+highrise_fire_inspection_clean_all
+
+# Only select the columns of importance
+highrise_fire_inspection_clean_all <-
+  highrise_fire_inspection_clean_all |>
+  select(property_address,
+         property_ward,
+         violation_fire_code,
+         number_of_violations)
+head(highrise_fire_inspection_clean_all)
+
+#### Save finalized comprehensive data ####
 write_csv(
-  x = highrise_fire_inspection_clean,
-  file = "inputs/data/highrise_fire_inspection_clean.csv"
+  x = highrise_fire_inspection_clean_all,
+  file = "inputs/data/highrise_fire_inspection_clean_all.csv"
+)
+
+#### Save finalized ward-specific data ####
+write_csv(
+  x = highrise_fire_inspection_clean_ward,
+  file = "inputs/data/highrise_fire_inspection_clean_ward.csv"
 )
 
 
