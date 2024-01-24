@@ -40,6 +40,8 @@ highrise_fire_inspection_clean <-
 head(highrise_fire_inspection_clean)
 
 # Fix ward numbers so they are consistent
+highrise_fire_inspection_clean[] <- 
+  lapply(highrise_fire_inspection_clean, as.character)
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
   mutate(
@@ -54,41 +56,46 @@ highrise_fire_inspection_clean <-
         "06" ~ "6",
         "07" ~ "7",
         "08" ~ "8",
-        "09" ~ "9"
+        "09" ~ "9",
+        "10" ~ "10",
+        "11" ~ "11",
+        "12" ~ "12",
+        "13" ~ "13",
+        "14" ~ "14",
+        "15" ~ "15",
+        "16" ~ "16",
+        "17" ~ "17",
+        "18" ~ "18",
+        "19" ~ "19",
+        "20" ~ "20",
+        "21" ~ "21",
+        "22" ~ "22",
+        "23" ~ "23",
+        "24" ~ "24",
+        "25" ~ "25",
       )
   )
 head(highrise_fire_inspection_clean)
 
 # Create a dataset with number of violations per ward
-highrise_fire_inspection_ward <-
+# Based on code from: https://www.geeksforgeeks.org/remove-duplicate-rows-based-on-multiple-columns-using-dplyr-in-r/
+highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
   select(property_ward,
          violation_fire_code)
-highrise_fire_inspection_ward
-
-highrise_fire_inspection_ward <-
-  highrise_fire_inspection_ward |>
-  group_by(property_ward) |>
-  mutate(number_of_violations_per_ward = n())
-highrise_fire_inspection_ward
-
-# Create a number of violations variable
-highrise_fire_inspection_clean <-
-  highrise_fire_inspection_clean |>
-  group_by(property_address) |>
-  mutate(number_of_violations = n())
 highrise_fire_inspection_clean
 
-
-# Only select the columns of importance
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
-  select(property_address,
-         property_ward,
-         violation_fire_code,
-         number_of_violations)
-head(highrise_fire_inspection_clean)
+  group_by(property_ward) |>
+  mutate(number_of_violations_per_ward = n()) |>
+  select(property_ward,
+        number_of_violations_per_ward)
+highrise_fire_inspection_clean
 
+highrise_fire_inspection_clean <-
+  distinct(highrise_fire_inspection_clean, property_ward, .keep_all= TRUE)
+highrise_fire_inspection_clean
 
 #### Save finalized data ####
 write_csv(
@@ -96,10 +103,6 @@ write_csv(
   file = "inputs/data/highrise_fire_inspection_clean.csv"
 )
 
-write_csv(
-  x = highrise_fire_inspection_ward,
-  file = "inputs/data/highrise_fire_inspection_ward.csv"
-)
 
 #### Clean ward data ####
 # Clean column names and remove toronto column
