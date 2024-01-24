@@ -60,7 +60,7 @@ To clean this data, I removed variables irrelevant to the intended scope of inve
 
 head (cleaned_fire_inspection_data, 5) |>
   kable(
-    col.names = c("Property Address" , "Property Ward", "Violation Fire Code", "Violation Description", "Number of Violations"),
+    col.names = c("Property Address" , "Property Ward", "Violation Fire Code", "Number of Violations"),
   booktabs = TRUE
   )
 ```
