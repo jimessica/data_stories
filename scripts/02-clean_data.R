@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Cleans the unedited fire inspection and ward data
+# Purpose: Clean the unedited fire inspection and ward data
 # Author: Jessica Im
 # Email: jessica.im@mail.utoronto.ca
 # Date: 24 January 2024
