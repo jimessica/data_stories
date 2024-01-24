@@ -139,6 +139,22 @@ cleaned_fire_inspection_data_ward |>
   theme_classic() 
 ```
 
+```{r}
+
+# Code referenced from: cleaned_fire_inspection_data_ward
+rearranged_fire_data <- 
+  as.data.frame(t(cleaned_fire_inspection_data_ward))
+rearranged_fire_data
+
+rearranged_fire_data |>
+  row_to_names(row_number = 1)
+
+
+
+```
+
+
+
 ## Appendix
 ### Data Cleaning
 To clean the Fire Investigation data, I removed variables irrelevant to the intended scope of investigation. For example, date of inspections and buildings without fire code violations were removed [@FireInspectionResultsData]. Originally, I wanted to explore the relationship between the number of fire code violations in a ward with socioeconomic data of the same ward, but I had a really hard time adjusting the number of violations  with the number of highrises in the ward, so I had to change and limit the scope of my paper. Attempts to do this can be found at [@attempt]
