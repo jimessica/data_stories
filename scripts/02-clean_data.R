@@ -131,10 +131,7 @@ write_csv(
 )
 
 write_csv(
-  x = write_csv(
   x = ward_data_avg_owned_shelter_cost,
-  file = "inputs/data/ward_data_avg_owned_shelter_cost.csv",
-),
   file = "inputs/data/ward_data_avg_owned_shelter_cost.csv",
 )
 
