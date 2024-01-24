@@ -95,22 +95,22 @@ ward_data_clean
 
 # Select median household income data
 ward_data_median_household_income <-
-  ward_data_clean[25,3:27]
+  ward_data_clean[25,]
 ward_data_median_household_income
 
 # Select average monthly rented shelter cost
 ward_data_avg_rent <-
-  ward_data_clean[33,3:27]
+  ward_data_clean[33,]
 ward_data_avg_rent
 
 # Select average monthly owned shelter cost
 ward_data_avg_owned_shelter_cost <- 
-  ward_data_clean[37,3:27]
+  ward_data_clean[37,]
 ward_data_avg_owned_shelter_cost
 
 # Select median individual income 
 ward_data_median_indv_income <- 
-  ward_data_clean[69,3:27]
+  ward_data_clean[69,]
 ward_data_median_indv_income
 
 
