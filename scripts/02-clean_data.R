@@ -18,14 +18,14 @@ library(lubridate)
 # Read in fire data
 highrise_fire_inspection_data <-
   read_csv(
-  "unedited_fire_inspection_data.csv",
+  "inputs/data/unedited_fire_inspection_data.csv",
   show_col_types = FALSE
   )
 
 # Read in ward data
 ward_data <-
   read_csv(
-  "unedited_ward_data.csv",
+  "inputs/data/unedited_ward_data.csv",
   skip = 1358,
   show_col_types = FALSE
   )
@@ -87,6 +87,10 @@ write_csv(
 # Clean column names
 ward_data_clean <-
   clean_names(ward_data)
+ward_data_clean
+
+ward_data_clean <-
+  ward_data_clean[-c(5, 1:1, 2)]
 ward_data_clean
 
 # Select median household income data
