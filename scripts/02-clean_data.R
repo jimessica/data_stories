@@ -84,7 +84,7 @@ write_csv(
 
 
 #### Clean ward data ####
-# Clean column names
+# Clean column names and remove toronto column
 ward_data_clean <-
   clean_names(ward_data)
 ward_data_clean
@@ -118,4 +118,19 @@ ward_data_median_indv_income
 write_csv(
   x = ward_data_clean,
   file = "inputs/data/ward_data_clean.csv",
+)
+
+write_csv(
+  x = ward_data_median_household_income,
+  file = "inputs/data/ward_data_median_household_income.csv",
+)
+
+write_csv(
+  x = ward_data_avg_owned_shelter_cost,
+  file = "inputs/data/ward_data_avg_owned_shelter_cost.csv",
+)
+
+write_csv(
+  x = ward_data_median_indv_income,
+  file = "inputs/data/ward_data_median_indv_income.csv",
 )
