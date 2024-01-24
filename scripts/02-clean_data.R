@@ -23,11 +23,18 @@ highrise_fire_inspection_data <-
   )
 
 # Read in ward data
-ward_data <-
+ward_data_economics <-
   read_csv(
   "inputs/data/unedited_ward_data.csv",
   skip = 1358,
   show_col_types = FALSE
+  )
+
+ward_data <-
+  read_csv(
+    "inputs/data/unedited_ward_data.csv",
+    skip = 1358,
+    show_col_types = FALSE
   )
 
 
@@ -129,7 +136,7 @@ write_csv(
 #### Clean ward data ####
 # Clean column names and remove toronto column
 ward_data_clean <-
-  clean_names(ward_data) |>
+  clean_names(ward_data_economics) |>
   rename(data_type = na)
 ward_data_clean
 

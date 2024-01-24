@@ -43,7 +43,6 @@ show_col_types = FALSE
 # Sample avg rent ward data
 cleaned_ward_data_sample <-
   ward_data_cleaned[-c(7:27)]
-
 ```
 
 ## Introduction
@@ -56,14 +55,8 @@ While high-rises are designed with fire safety as a priority, because of the num
 ## Data
 The two datasets used in this paper are from the city of Toronto's OpenDataToronto database [@R-opendatatoronto]. To investigate the various socioeconomic variables and investigation violations in relation to highrises, two datasets were used: "Highrise Residential Fire Inspection Results" [@FireInspectionResultsData] and "Ward Profiles (25-ward model) [@WardProfiles]. The data were cleaned and analyzed using open-source statistical programming language R [@R-base], alongside dplyr [@R-dplyr], tidyverse [@R-tidyverse], forcats [@R-forcats], ggplot2 [@R-ggplot2], janitor [@R-janitor], knitr [@R-knitr], lubridate [@R-lubridate], purrr [@R-purrr], readr [@R-readr], readxl [@R-readxl], stringr [@R-stringr], tibble [@R-tibble], and tidyr [@R-tidyr].
 
-```{r}
-
-```
-
 ### Fire Inspection Results Data
-The Highrise Residential Fire Inspection Results Data [@FireInspectionResultsData] consists of properties with and without identified Ontario Fire Code violations. This dataset does not include ongoing inspections and only includes closed cases. The data includes building addresses, property wards, each fire code violated and a description, and the open and close date of each inspection. 
-
-To clean this data, I removed variables irrelevant to the intended scope of investigation. For example, date of inspections and buildings without fire code violations were removed (see @tbl-cleaned_fire_inspection_data). 
+The Highrise Residential Fire Inspection Results Data [@FireInspectionResultsData] consists of properties with and without identified Ontario Fire Code violations. This dataset does not include ongoing inspections and only includes closed cases. The data includes building addresses, property wards, each fire code violated and a description, and the open and close date of each inspection. In this data, the property address, the property's ward, the fire code violated, and the number of violations at each property were key to uncovering patterns in fire investigations (see @tbl-cleaned_fire_inspection_data). 
 
 ```{r}
 #| message: false
@@ -72,6 +65,7 @@ To clean this data, I removed variables irrelevant to the intended scope of inve
 #| tbl-cap: Sample of Cleaned Fire Inspection Data
 
 # Code referenced from: https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd
+
 head (cleaned_fire_inspection_data, 4) |>
   kable(
     col.names = c("Property Address", "Property Ward", "Violation Fire Code", "Number of Violations"),
@@ -81,9 +75,7 @@ head (cleaned_fire_inspection_data, 4) |>
 ```
 
 ### Ward Profiles Data
-For the second dataset, I used the Ward Profile dataset [@WardProfiles]. This data is gathered from the 2021 Statistics Canada Census of Population and includes demographic, economic, and social information based on the 25 Wards which geographically divide Toronto. While the entire dataset includes data from the 2016 and 2011 Census data, I only used the 2021 data. 
-
-I focused solely on socioeconomic data like median household and individual income, as well as monthly shelter costs (see @tbl-ward_rent_data_sample).
+For the second dataset, I used the Ward Profile dataset [@WardProfiles]. This data is gathered from the 2021 Statistics Canada Census of Population and includes demographic, economic, and social information based on the 25 Wards which geographically divide Toronto. While the entire dataset includes data from the 2016 and 2011 Census data, I only used the 2021 data. I focused solely on socioeconomic data like median household and individual income, as well as monthly shelter costs (see @tbl-ward_rent_data_sample).
 
 ```{r}
 #| message: false
@@ -110,6 +102,30 @@ The number of violations was highest in Ward 13, at 2662 violations (see @fig-vi
 
 # Violations per Ward
 #Code referenced from: https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd
+
+cleaned_fire_inspection_data_ward |>
+ ggplot(mapping = aes(x = property_ward, y = number_of_violations_per_ward)) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 25)) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10))+
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Number of Violations per Ward",
+    x = "Ward",
+    y = "Violations",
+  ) +
+  theme_classic() 
+```
+
+### Violations and Age
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-violations_and_age
+#| fig-cap: Violations and Age
+
+# Violations and Age
+
+
 cleaned_fire_inspection_data_ward |>
  ggplot(mapping = aes(x = property_ward, y = number_of_violations_per_ward)) +
   scale_x_continuous(breaks = scales::pretty_breaks(n = 25)) +
@@ -124,10 +140,9 @@ cleaned_fire_inspection_data_ward |>
 ```
 
 
-
-```{r}
-library(gitcreds)
-gitcreds_set()
-```
-
 ## References
+
+## Appendix
+### Data Cleaning
+To clean the Fire Investigation data, I removed variables irrelevant to the intended scope of investigation. For example, date of inspections and buildings without fire code violations were removed [@FireInspectionResultsData]. Originally, I wanted to explore the relationship between the number of fire code violations in a ward with socioeconomic data of the same ward, but I had a really hard time adjusting the number of violations  with the number of highrises in the ward, so I had to change and limit the scope of my paper. Attempts to do this can be found at [@attempt]
+
