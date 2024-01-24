@@ -94,6 +94,7 @@ ward_data_clean <-
   ward_data_clean[-c(2)]
 ward_data_clean
 
+
 # Select median household income data
 ward_data_median_household_income <-
   ward_data_clean[25,]
@@ -117,6 +118,21 @@ ward_data_median_indv_income
 # Bind ward data together
 ward_data_cleaned <-
   bind_rows(ward_data_median_household_income, ward_data_avg_rent, ward_data_avg_owned_shelter_cost, ward_data_median_indv_income)
+ward_data_cleaned
+
+# Renaming data type values
+ward_data_cleaned <-
+  ward_data_cleaned |>
+  mutate(
+    data_type =
+      case_match(
+        data_type,
+        "Average total income of households in 2020 ($)" ~ "Avg household income",
+        "Average monthly shelter costs for rented dwellings ($)" ~ "Avg monthly rented shelter cost",
+        "Average monthly shelter costs for owned dwellings ($)" ~ "Avg monthly owned shelter cost",
+        "Median total income in 2020 among recipients ($)" ~ "Med indv income"
+      )
+  )
 ward_data_cleaned
 
 
