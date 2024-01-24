@@ -40,9 +40,17 @@ ward_data_cleaned <-
   read.csv(here::here("inputs/data/ward_data_cleaned.csv"))
 show_col_types = FALSE
 
+ward_data_cleaned_socials <- 
+  read.csv(here::here("inputs/data/ward_data_socials_cleaned.csv"))
+show_col_types = FALSE
+
 # Sample avg rent ward data
 cleaned_ward_data_sample <-
   ward_data_cleaned[-c(7:27)]
+
+# Sample elderly residents ward data
+cleaned_socials_ward_data_sample <-
+  ward_data_cleaned_socials[-c(7:27)]
 ```
 
 ## Introduction
@@ -75,7 +83,7 @@ head (cleaned_fire_inspection_data, 4) |>
 ```
 
 ### Ward Profiles Data
-For the second dataset, I used the Ward Profile dataset [@WardProfiles]. This data is gathered from the 2021 Statistics Canada Census of Population and includes demographic, economic, and social information based on the 25 Wards which geographically divide Toronto. While the entire dataset includes data from the 2016 and 2011 Census data, I only used the 2021 data. I focused solely on socioeconomic data like median household and individual income, as well as monthly shelter costs (see @tbl-ward_rent_data_sample).
+For the second dataset, I used the Ward Profile dataset [@WardProfiles]. This data is gathered from the 2021 Statistics Canada Census of Population and includes demographic, economic, and social information based on the 25 Wards which geographically divide Toronto. While the entire dataset includes data from the 2016 and 2011 Census data, I only used the 2021 data. I focused  on socioeconomic data like median household and individual income, as well as relevant population data like elderly and children populations (see @tbl-ward_rent_data_sample and @tble-ward_socials_data_sample).
 
 ```{r}
 #| message: false
@@ -87,6 +95,21 @@ For the second dataset, I used the Ward Profile dataset [@WardProfiles]. This da
 head (cleaned_ward_data_sample, 6) |>
   kable(
     col.names = c("Data Type", "Ward 1", "Ward 2", "Ward 3", "Ward 4", "Ward 5"),
+  booktabs = TRUE
+  )
+```
+
+
+```{r}
+#| message: false
+#| echo: false
+#| label: tbl-ward_socials_data_sample
+#| tbl-cap: Sample of Elderly Residents
+
+# Code referenced from: https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd
+head (cleaned_socials_ward_data_sample, 5) |>
+  kable(
+    col.names = c("Age range", "Ward 1", "Ward 2", "Ward 3", "Ward 4", "Ward 5"),
   booktabs = TRUE
   )
 ```
