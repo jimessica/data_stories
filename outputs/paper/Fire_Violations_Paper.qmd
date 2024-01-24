@@ -126,11 +126,8 @@ cleaned_fire_inspection_data_ward |>
 
 
 ```{r}
-#| message: false
-#| echo: false
-
-# library(gitcreds)
-# gitcreds_set()
+library(gitcreds)
+gitcreds_set()
 ```
 
 ## References
