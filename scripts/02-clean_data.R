@@ -90,7 +90,7 @@ ward_data_clean <-
 ward_data_clean
 
 ward_data_clean <-
-  ward_data_clean[-c(5, 1:1, 2)]
+  ward_data_clean[-c(2)]
 ward_data_clean
 
 # Select median household income data
