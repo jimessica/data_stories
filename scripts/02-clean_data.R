@@ -123,5 +123,5 @@ ward_data_cleaned
 ##### Save ward data ####
 write_csv(
   x = ward_data_cleaned,
-  file = "inputs/data/ward_data_clean.csv",
+  file = "inputs/data/ward_data_cleaned.csv",
 )
