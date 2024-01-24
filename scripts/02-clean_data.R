@@ -33,7 +33,7 @@ ward_data_economics <-
 ward_data <-
   read_csv(
     "inputs/data/unedited_ward_data.csv",
-    skip = 1358,
+    skip = 17,
     show_col_types = FALSE
   )
 
@@ -144,6 +144,16 @@ ward_data_clean <-
   ward_data_clean[-c(2)]
 ward_data_clean
 
+# Social variables
+
+ward_data_clean_social <-
+  clean_names(ward_data) |>
+  rename(residents = na)
+ward_data_clean_social
+
+ward_data_clean_social <-
+  ward_data_clean_social[-c(2)]
+ward_data_clean_social
 
 # Select median household income data
 ward_data_median_household_income <-
@@ -185,9 +195,38 @@ ward_data_cleaned <-
   )
 ward_data_cleaned
 
+# Senior citizens
+ward_data_clean_social_seniors <- 
+  ward_data_clean_social[16:20,]
+ward_data_clean_social_seniors
+
+# With children
+ward_data_clean_social_children_couple <- 
+  ward_data_clean_social[99,]
+ward_data_clean_social_children_couple
+
+ward_data_clean_social_children_single <- 
+  ward_data_clean_social[101,]
+ward_data_clean_social_children_single
+
+# 3 or more residents
+ward_data_clean_social_3plus <- 
+  ward_data_clean_social[112,]
+ward_data_clean_social_3plus
+
+# Bind ward data together
+ward_data_socials_cleaned <-
+  bind_rows(ward_data_clean_social_seniors, ward_data_clean_social_children_couple, ward_data_clean_social_children_single, ward_data_clean_social_3plus)
+ward_data_socials_cleaned
+
 
 ##### Save ward data ####
 write_csv(
   x = ward_data_cleaned,
   file = "inputs/data/ward_data_cleaned.csv",
+)
+
+write_csv(
+  x = ward_data_socials_cleaned,
+  file = "inputs/data/ward_data_socials_cleaned.csv",
 )
