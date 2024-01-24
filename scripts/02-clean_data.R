@@ -35,13 +35,10 @@ ward_data <-
 # Clean names and filter out highrises without a violation
 highrise_fire_inspection_clean <-
   clean_names(highrise_fire_inspection_data)|>
-  drop_na(violation_fire_code
-          )
+  drop_na(violation_fire_code)
 head(highrise_fire_inspection_clean)
 
 # Fix ward numbers so they are consistent
-highrise_fire_inspection_clean[] <- 
-  lapply(highrise_fire_inspection_clean, as.character)
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
   mutate(
@@ -77,6 +74,8 @@ highrise_fire_inspection_clean <-
   )
 head(highrise_fire_inspection_clean)
 
+
+
 # Create a dataset with number of violations per ward
 # Based on code from: https://www.geeksforgeeks.org/remove-duplicate-rows-based-on-multiple-columns-using-dplyr-in-r/
 highrise_fire_inspection_clean_ward <-
@@ -96,6 +95,7 @@ highrise_fire_inspection_clean_ward
 highrise_fire_inspection_clean_ward <-
   distinct(highrise_fire_inspection_clean_ward, property_ward, .keep_all= TRUE)
 highrise_fire_inspection_clean_ward
+
 
 # Create a cleaned dataset with all relevant columns
 highrise_fire_inspection_clean_all <-

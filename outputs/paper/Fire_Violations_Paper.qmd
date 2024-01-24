@@ -26,15 +26,24 @@ library(lubridate)
 library(ggplot2)
 library(readxl)
 
-#read in cleaned data #
+# Read in cleaned fire data
 cleaned_fire_inspection_data <- 
-  read.csv(here::here("inputs/data/highrise_fire_inspection_clean.csv"))
+  read.csv(here::here("inputs/data/highrise_fire_inspection_clean_all.csv"))
 show_col_types = FALSE
 
-#read in cleaned data #
-summarized_voter_statistics <- 
-  read.csv(here::here("inputs/data/ward_data_clean.csv"))
+cleaned_fire_inspection_data_ward <- 
+  read.csv(here::here("inputs/data/highrise_fire_inspection_clean_ward.csv"))
 show_col_types = FALSE
+
+# Read in cleaned ward data
+ward_data_cleaned <- 
+  read.csv(here::here("inputs/data/ward_data_cleaned.csv"))
+show_col_types = FALSE
+
+# Sample avg rent ward data
+cleaned_ward_data_sample <-
+  ward_data_cleaned[-c(7:27)]
+
 ```
 
 ## Introduction
@@ -48,13 +57,13 @@ While high-rises are designed with fire safety as a priority, because of the num
 The two datasets used in this paper are from the city of Toronto's OpenDataToronto database [@R-opendatatoronto]. To investigate the various socioeconomic variables and investigation violations in relation to highrises, two datasets were used: "Highrise Residential Fire Inspection Results" [@FireInspectionResultsData] and "Ward Profiles (25-ward model) [@WardProfiles]. The data were cleaned and analyzed using open-source statistical programming language R [@R-base], alongside dplyr [@R-dplyr], tidyverse [@R-tidyverse], forcats [@R-forcats], ggplot2 [@R-ggplot2], janitor [@R-janitor], knitr [@R-knitr], lubridate [@R-lubridate], purrr [@R-purrr], readr [@R-readr], readxl [@R-readxl], stringr [@R-stringr], tibble [@R-tibble], and tidyr [@R-tidyr].
 
 ```{r}
-cleaned_fire_inspection_data
+
 ```
 
 ### Fire Inspection Results Data
 The Highrise Residential Fire Inspection Results Data [@FireInspectionResultsData] consists of properties with and without identified Ontario Fire Code violations. This dataset does not include ongoing inspections and only includes closed cases. The data includes building addresses, property wards, each fire code violated and a description, and the open and close date of each inspection. 
 
-To clean this data, I removed variables irrelevant to the intended scope of investigation. For example, date of inspections and buildings without fire code violations were removed (see @tbl-). 
+To clean this data, I removed variables irrelevant to the intended scope of investigation. For example, date of inspections and buildings without fire code violations were removed (see @tbl-cleaned_fire_inspection_data). 
 
 ```{r}
 #| message: false
@@ -71,11 +80,57 @@ head (cleaned_fire_inspection_data, 4) |>
 
 ```
 
-## Results
-```{r}
+### Ward Profiles Data
+For the second dataset, I used the Ward Profile dataset [@WardProfiles]. This data is gathered from the 2021 Statistics Canada Census of Population and includes demographic, economic, and social information based on the 25 Wards which geographically divide Toronto. While the entire dataset includes data from the 2016 and 2011 Census data, I only used the 2021 data. 
 
+I focused solely on socioeconomic data like median household and individual income, as well as monthly shelter costs (see @tbl-ward_rent_data_sample).
+
+```{r}
+#| message: false
+#| echo: false
+#| label: tbl-ward_rent_data_sample
+#| tbl-cap: Sample of Cleaned Average Rent Ward Data
+
+# Code referenced from: https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd
+head (cleaned_ward_data_sample, 6) |>
+  kable(
+    col.names = c("Data Type", "Ward 1", "Ward 2", "Ward 3", "Ward 4", "Ward 5"),
+  booktabs = TRUE
+  )
 ```
 
-## Conclusion
+### Violations per Ward
+The number of violations was highest in Ward 13, at 2662 violations (see @fig-violations_per_ward). Ward 25 had the lowest number of highrise violations at 134. These numbers are most likely influenced by the total number of highrises in the wards since Ward 13 is Toronto Centre and Ward 25 is the Scarborough-Rouge Park area. 
+
+```{r}
+#| message: false
+#| echo: false
+#| label: fig-violations_per_ward
+#| fig-cap: Violations per Ward
+
+# Violations per Ward
+#Code referenced from: https://github.com/InessaDeAngelis/Toronto_Elections/blob/main/outputs/paper/toronto_elections_paper.qmd
+cleaned_fire_inspection_data_ward |>
+ ggplot(mapping = aes(x = property_ward, y = number_of_violations_per_ward)) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 25)) +
+  scale_y_continuous(breaks = scales::pretty_breaks(n = 10))+
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Number of Violations per Ward",
+    x = "Ward",
+    y = "Violations",
+  ) +
+  theme_classic() 
+```
+
+
+
+```{r}
+#| message: false
+#| echo: false
+
+# library(gitcreds)
+# gitcreds_set()
+```
 
 ## References
