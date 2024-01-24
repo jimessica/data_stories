@@ -59,12 +59,26 @@ highrise_fire_inspection_clean <-
   )
 head(highrise_fire_inspection_clean)
 
+# Create a dataset with number of violations per ward
+highrise_fire_inspection_ward <-
+  highrise_fire_inspection_clean |>
+  select(property_ward,
+         violation_fire_code)
+highrise_fire_inspection_ward
+
+highrise_fire_inspection_ward <-
+  highrise_fire_inspection_ward |>
+  group_by(property_ward) |>
+  mutate(number_of_violations_per_ward = n())
+highrise_fire_inspection_ward
+
 # Create a number of violations variable
 highrise_fire_inspection_clean <-
   highrise_fire_inspection_clean |>
   group_by(property_address) |>
   mutate(number_of_violations = n())
 highrise_fire_inspection_clean
+
 
 # Only select the columns of importance
 highrise_fire_inspection_clean <-
@@ -82,6 +96,10 @@ write_csv(
   file = "inputs/data/highrise_fire_inspection_clean.csv"
 )
 
+write_csv(
+  x = highrise_fire_inspection_ward,
+  file = "inputs/data/highrise_fire_inspection_ward.csv"
+)
 
 #### Clean ward data ####
 # Clean column names and remove toronto column
